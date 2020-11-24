@@ -14,7 +14,9 @@ def openChat():
     keyboard.release(Key.shift)
     keyboard.release(Key.cmd.value)
 
-    for i in range(3):
+    i = 0
+    while i < 3:
+        i += 1
         keyboard.press(Key.tab)
         keyboard.release(Key.tab)
 
