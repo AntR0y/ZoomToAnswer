@@ -9,7 +9,7 @@ def searchQuery(q):
       "hl": "en",
       "gl": "us",
       "device": "desktop",
-      "api_key": "6c8dcdb60b2416c130acea4c86a035763e5869fe9e5eb44db66077985f512697"
+      "api_key": "15a037764e46ed48d7f0a90e1608802f1f89e989abb185fa6279192ee7a8d66f"
     }
 
     client = GoogleSearch(params)
