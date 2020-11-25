@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from Google_Search import searchQuery
 import pyperclip
+import winsound
 from Zoom_Control import openChat
 
 #%%
@@ -35,7 +36,7 @@ def recognize_speech_from_mic(recognizer, microphone):
     # adjust the recognizer sensitivity to ambient noise and record audio
     # from the microphone
     with microphone as source:
-        recognizer.adjust_for_ambient_noise(source) # #  analyze the audio source for 1 second
+        #recognizer.adjust_for_ambient_noise(source) # #  analyze the audio source for 1 second
         audio = recognizer.listen(source)
 
     # set up the response object
@@ -69,6 +70,7 @@ def recognize_speech_from_mic(recognizer, microphone):
 #%%
 
 def start_listening():
+    print("\a")
     print("Ask Question")
     recognizer = sr.Recognizer()
     mic = sr.Microphone(device_index=0)
