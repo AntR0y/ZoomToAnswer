@@ -12,8 +12,9 @@ def listen_for_keyword(recognizer, aud, key):
     try:
         if  recognizer.recognize_google(aud).find(key) != -1: # Keyword is found
             # Dings when keyword is found
-            print('\a')
-            start_listening()
+            return True
+            #print('\a')
+            #start_listening()
 
     # Catches potential errors that might come up while audio is recognized
     except sr.UnknownValueError:
