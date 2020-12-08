@@ -9,11 +9,12 @@ def searchQuery(q):
       "hl": "en",
       "gl": "us",
       "device": "desktop",
-      "api_key": "6c8dcdb60b2416c130acea4c86a035763e5869fe9e5eb44db66077985f512697"
+      "api_key": "915f5bc0d2693d97cc88e81f62f1a1b4518844fffd65569bd6c2aae71dc71eda"
     }
 
     client = GoogleSearch(params)
     results = client.get_dict()
+    #print(results)
     if 'answer_box' in results:
         res = results['answer_box']
         if 'result' in res:
@@ -24,7 +25,17 @@ def searchQuery(q):
             output = res['definition']
         else:
             output = results['answer_box']
-        pyperclip.copy(str(output))
+
+        # Check if Question is included in answer -- if so, omit it and include the voice query instead
+        output_list = str(output).split('?', 1)
+        print(output_list)
+        if len(output_list) == 1:
+            output = output_list[0]
+        else:
+            output = output_list[1]
+
+        q_and_a = "------------\nQuestion: " + str(q) + '\n\n' + "Answer: " + str(output)
+        pyperclip.copy(q_and_a + '\n------------')
         pyperclip.paste()
     elif 'knowledge_graph' in results:
         res = results['knowledge_graph']
@@ -34,25 +45,70 @@ def searchQuery(q):
             output = res['snippet']
         else:
             output = results['knowledge_graph']
-        pyperclip.copy(str(output))
+        try:
+            link = res['link']
+        except:
+            link = ""
+
+        # Check if Question is included in answer -- if so, omit it and include the voice query instead
+        output_list = str(output).split('?', 1)
+        print(output_list)
+
+        if len(output_list) == 1:
+            output = output_list[0]
+        else:
+            output = output_list[1]
+        
+        q_and_a = "------------\nQuestion: " + str(q) + '\n\n' + "Answer: " + str(output)
+        pyperclip.copy(q_and_a + '\n' + str(link) + '------------')
         pyperclip.paste()
     else:
+        print('links')
         found = False
+        links = ''
+        output = ''
         for i in results:
             if type(results[i]) == list:
                 for k in range(len(results[i])):
                     if 'snippet' in results[i][k]:
                         output = results[i][k]['snippet'] + '  LINK AT:' + results[i][k]['link']
                         found = True
+                        links = getLinks(results[i])
                         break
                 if found:
                     break
         if not found:
             output = "NO VALID ANSWERS"
-        pyperclip.copy(str(output))
+
+        # Check if Question is included in answer -- if so, omit it and include the voice query instead
+        output_list = str(output).split('?', 1)
+        print(output_list)
+
+        if len(output_list) == 1:
+            output = output_list[0]
+        else:
+            output = output_list[1]
+
+        q_and_a = "------------\nQuestion: " + str(q) + '\n\n' + "Answer: " + str(output)
+        pyperclip.copy(q_and_a + '\n \n' + links + '------------')
         pyperclip.paste()
 
     openChat()
 
+def getLinks(my_list):
+    links = ''
+    for k in range(0, min(6, len(my_list))):
+        links += str(k+1) + ')' +my_list[k]['link'] + '\n'
+    return links
+
 
 #searchQuery("what is the integral of sinx")
+"""
+    elif 'top_stories' in results:
+        output = ""
+        res = results['top_stories']
+        if 'title' in res:
+            output = res['title']
+        pyperclip.copy(str(output))
+        pyperclip.paste()
+"""
