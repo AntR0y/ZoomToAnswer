@@ -1,17 +1,7 @@
-import logging
-import os
 from queue import Queue
 from threading import Thread
-
 import speech_recognition as sr
-from time import time
-from Voice_Recognition import start_listening
 from New_Voice import get_audio, listen_for_keyword
-
-#logging.basicConfig(levl=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-#
-# logger = logging.getLogger(__name__)
 
 class ListenerWorker(Thread):
     def __init__(self, queue):
