@@ -22,7 +22,7 @@ def openChat():
     #    keyboard.press(Key.tab)
     #    keyboard.release(Key.tab)
 
-    time.sleep(2)
+    #time.sleep(2)
     keyboard.press(Key.ctrl)
     keyboard.press('v')
     keyboard.release('v')

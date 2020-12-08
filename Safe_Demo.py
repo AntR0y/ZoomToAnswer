@@ -10,7 +10,7 @@ class ForeverListener():
     def listen_for_keyword(self):
         # get audio from the microphone                                                                       
         r = sr.Recognizer()                    
-        keyword = "Zelda"                                                                
+        keyword = "excuse me Zendaya"                                                                
         with sr.Microphone() as source:                                                                       
             print("Speak:")                                                                                   
             audio = r.listen(source)
