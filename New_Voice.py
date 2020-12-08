@@ -1,20 +1,16 @@
 import speech_recognition as sr
-from Voice_Recognition import start_listening
 
 def get_audio(recognizer):
     # get audio from the microphone                                                                                          
     with sr.Microphone() as source:                                                                                                                                                         
-        audio = recognizer.record(source, duration=5)
+        audio = recognizer.record(source, duration=3)
     return audio
 
 def listen_for_keyword(recognizer, aud, key):
     # See if audio contains keyword
     try:
         if  recognizer.recognize_google(aud).find(key) != -1: # Keyword is found
-            # Dings when keyword is found
             return True
-            #print('\a')
-            #start_listening()
 
     # Catches potential errors that might come up while audio is recognized
     except sr.UnknownValueError:

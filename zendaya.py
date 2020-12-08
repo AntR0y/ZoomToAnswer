@@ -24,7 +24,6 @@ class ListenerWorker(Thread):
                 self.queue.task_done()
                 if keywordFound and not currentlyListening:
                     currentlyListening = True
-                    print('\a')
                     start_listening()
                     currentlyListening = False
 
@@ -40,7 +39,6 @@ class RecorderWorker(Thread):
             try:
                 audio = get_audio(r)
                 listenerQ.put((r, audio))
-                print("audio put into listener Q")
             finally:
                 self.queue.task_done()
         listenerQ.join()
@@ -53,7 +51,7 @@ def main():
     RecorderQueue = Queue()
 
     # Create 8 ListenerWorker threads
-    for x in range(8):
+    for x in range(4):
         worker = ListenerWorker(ListenerQueue)
         worker.daemon = True
         worker.start()
@@ -67,7 +65,7 @@ def main():
     # Continuously record voice clips and puts them into queue
     while True:
         RecorderQueue.put((r, ListenerQueue))
-        time.sleep(2.5)
+        time.sleep(1.5)
     RecorderQueue.join()
 
 if __name__ == '__main__':
