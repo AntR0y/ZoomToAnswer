@@ -2,8 +2,8 @@ import time
 import speech_recognition as sr
 from queue import Queue
 from threading import Thread
-from New_Voice import get_audio, listen_for_keyword
-from Voice_Recognition import start_listening
+from Keyword_Listener import get_audio, listen_for_keyword
+from Query_Listener import start_listening
 
 currentlyListening = False
 
