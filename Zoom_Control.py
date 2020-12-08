@@ -1,28 +1,32 @@
+from sys import platform
 from pynput.keyboard import Key, Controller
-import time
-keyboard = Controller()
 import pyperclip
+keyboard = Controller()
 
 # Press and release space
 def openChat():
-    # Type a lower case A; this will work even if no key on the
-    # physical keyboard is labelled 'A'
-    #keyboard.press(Key.cmd.value)
-    #keyboard.press(Key.shift)
-    keyboard.press(Key.alt)
-    keyboard.press('h')
-    keyboard.release('h')
-    keyboard.release(Key.alt)
-    #keyboard.release(Key.shift)
-    #keyboard.release(Key.cmd.value)
-
-    #i = 0
-    #while i < 3:
-    #    i += 1
-    #    keyboard.press(Key.tab)
-    #    keyboard.release(Key.tab)
-
-    #time.sleep(2)
+    # Open chat; shortcut differs based on operating system, assuming Windows and MacOS use for now
+    if platform == 'win32':
+        keyboard.press(Key.alt)
+        keyboard.press('h')
+        keyboard.release('h')
+        keyboard.release(Key.alt)
+    elif platform == 'darwin':
+        keyboard.press(Key.cmd.value)
+        keyboard.press(Key.shift)
+        keyboard.press('h')
+        keyboard.release('h')
+        keyboard.release(Key.shift)
+        keyboard.release(Key.cmd.value)
+    else:
+        keyboard.press(Key.cmd.value)
+        keyboard.press(Key.shift)
+        keyboard.press('h')
+        keyboard.release('h')
+        keyboard.release(Key.shift)
+        keyboard.release(Key.cmd.value)
+ 
+    # Paste result into chat and enter
     keyboard.press(Key.ctrl)
     keyboard.press('v')
     keyboard.release('v')

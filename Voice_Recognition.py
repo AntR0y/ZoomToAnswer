@@ -80,11 +80,3 @@ def start_listening():
                   response['error'],
                   '-'*17,
                   response['transcription']))
-
-#def start_listening():
-#    print("Speak Now")
-#    recognizer = sr.Recognizer()
-#    mic = sr.Microphone(device_index=0)
-#    response = recognize_speech_from_mic(recognizer, mic)
-#    print('\n' + response['transcription'])
-#    print("DONE")
